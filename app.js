@@ -52,9 +52,10 @@ app.get('/facedetectCheck',function(reqst,respns){
 	}, data)
 });
 
-
+var sentimentText='';
 app.get('/analyzeSentiment',function(reqst,respns){
-	var data = {'text' : 'I like cats'}
+	var data = {'text' : sentimentText};
+	console.log(sentimentText);
 	client.call('analyzesentiment', function(err,resp,body){
 		respns.send(body);
 		respns.end();
@@ -76,7 +77,7 @@ app.get('/extracttext',function(reqst,respns){
 
 
 app.get('/analyzeSpeech',function(reqst,respns){
-	data={'file':'./newone.wav'};
+	data={'file':'./hpnext.mp4'};
 	client.call('recognizespeech', function(err,resp,body){
 		console.log(body);
 		jobId=body.data.jobID;
@@ -88,7 +89,9 @@ app.get('/analyzeSpeech',function(reqst,respns){
 
 app.get('/checkStatus',function(reqst,respns){
 	request('http://api.idolondemand.com/1/job/status/'+jobId+'?apikey=f3129194-4f03-4419-80c2-f3aa041baf9a',function(err,res,body){
-		respns.send(body);
+		console.log(JSON.parse(body).actions);
+		respns.send(JSON.parse(body));
+		sentimentText=JSON.parse(body).actions[0].result.document[0].content;
 		respns.end();
 	});
 });
