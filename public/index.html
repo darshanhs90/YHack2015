@@ -4,7 +4,7 @@
 	html5up.net | @n33co
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
-<html>
+<html ng-app="myApp">
 	<head>
 		<title>Big Picture by HTML5 UP</title>
 		<meta charset="utf-8" />
@@ -14,7 +14,7 @@
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 	</head>
-	<body>
+	<body ng-controller="myCtrl">
 
 		<!-- Header -->
 			<header id="header">
@@ -165,6 +165,9 @@
 			<script src="assets/js/util.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="assets/js/main.js"></script>
+			<script src="js/frameworks/angular.min.js"></script>
+			<script src="js/angular-login.js"></script>
+
 
 	</body>
 </html>
