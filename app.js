@@ -29,13 +29,14 @@ app.get('/fppCheck',function(reqst,respns){
 	var parameters = {
 		attribute: 'gender,age',
 		img : {
-			value: fs.readFileSync('./family.jpg')
-			, meta: {filename:'family.jpg'}
+			value: fs.readFileSync('../../../EHARIHS/Downloads/test.jpg')
+			, meta: {filename:'test.jpg'}
 		}
 	};
 	fpp.post('detection/detect', parameters, function(err, res) {
 		console.log(res);
 		respns.send(res);
+		fs.unlinkSync('../../../EHARIHS/Downloads/test.jpg');
 		respns.end();
 	});
 });
@@ -44,7 +45,7 @@ app.get('/fppCheck',function(reqst,respns){
 
 app.get('/facedetectCheck',function(reqst,respns){
 
-	data={'file':'./family.jpg',
+	data={'file':'../../../EHARIHS/Downloads/test.jpg',
 	'additional':'true'}
 
 	client.call('detectfaces', function(err,resp,body){
@@ -78,11 +79,12 @@ app.get('/extracttext',function(reqst,respns){
 
 
 app.get('/analyzeSpeech',function(reqst,respns){
-	data={'file':'./hpnext.mp4'};
+	data={'file':'./test.wav'};
 	client.call('recognizespeech', function(err,resp,body){
 		console.log(body);
 		jobId=body.data.jobID;
 		respns.send(body);
+		fs.unlinkSync('./test.wav');
 		respns.end();
 	}, data,true)
 });
