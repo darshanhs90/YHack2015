@@ -34,6 +34,7 @@ app.get('/fppCheck',function(reqst,respns){
 		}
 	};
 	fpp.post('detection/detect', parameters, function(err, res) {
+		console.log(res);
 		respns.send(res);
 		respns.end();
 	});

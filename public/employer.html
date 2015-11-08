@@ -59,23 +59,57 @@
     <header id="header">
 
         <!-- Logo -->
-        <!-- <h1 id="logo" style="align-center">HireMeNow</h1 -->>
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+        <!-- <h1 id="logo" style="align-center">HireMeNow</h1 -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">{{mod_title}}</h4>
+            </div>
+            <div class="modal-body" style="color:black;">
+
+                <div ng-show="showVal==1" style="height:400px;
+    overflow-y:scroll;">
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th>Type</th>
+                            <th>Score</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="x in val track by $index">
+                        <td>{{x.type}}</td>
+                        <td>{{x.score}}</td>
+                        <td>{{x.original_text}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div ng-show="showVal==2">
+           Age:{{val.age.value}}<br/>
+           Gender:{{val.gender.value}}<br/>
+           Race:{{val.race.value}}<br/>
+           Confidence:{{val.smiling.value}}
+       </div>
+
+       <div ng-show="showVal==3">
+        C
     </div>
-  </div>
+
+    <div ng-show="showVal==4">
+        {{val}}
+    </div>
+
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
 </div>
 </header>
 

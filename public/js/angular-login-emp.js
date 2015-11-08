@@ -21,12 +21,15 @@ app.controller('myCtrl',function($scope,$http) {
             $scope.intscore=res.aggregate.score;
         });
     }
-
+    $scope.showVal=0;
     $scope.getResumeInsights=function(){
         $http.get('http://localhost:1337/extractentities')
         .success(function(res){
             $('#myModal').modal('show')
             console.log(res);
+            $scope.mod_title="Resume Insights";
+            $scope.showVal=1;
+            $scope.val=res.entities;
         });
     }
 
@@ -35,6 +38,9 @@ app.controller('myCtrl',function($scope,$http) {
         .success(function(res){
             $('#myModal').modal('show')
             console.log(res);
+            $scope.mod_title="Personality Insights";
+            $scope.val=res.face[0].attribute;
+            $scope.showVal=2;
         });
     }
 
@@ -43,6 +49,8 @@ app.controller('myCtrl',function($scope,$http) {
         .success(function(res){
             $('#myModal').modal('show')
             console.log(res);
+            $scope.mod_title="Interview Insights";
+            $scope.showVal=3;
         });
     }
 
@@ -51,6 +59,12 @@ app.controller('myCtrl',function($scope,$http) {
         .success(function(res){
             $('#myModal').modal('show')
             console.log(res);
+            $scope.mod_title="Interview Validity";
+            if(res.face.length>1)
+                $scope.val='Looks like the Interviewee cheated in the video Interview';
+            else
+                $scope.val='Interview was Legitimate';
+            $scope.showVal=4;
         });
     }
 
