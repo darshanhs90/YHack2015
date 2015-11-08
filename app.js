@@ -21,7 +21,7 @@ fpp.setApiSecret('lI2k8MecfCg9jExmgTz4JcapfOj1MSP1');
 var jobId;
 
 app.listen(1337, '127.0.0.1', function() {
-    console.log("server starting on " + 1337);
+	console.log("server starting on " + 1337);
 });
 
 
@@ -63,11 +63,12 @@ app.get('/analyzeSentiment',function(reqst,respns){
 
 
 
-
-app.get('/ocrCheck',function(reqst,respns){
-	data={'file':'./bowers.jpg'}
-	client.call('ocrdocument', function(err,resp,body){
+var text='';
+app.get('/extracttext',function(reqst,respns){
+	data={'file':'./res.pdf'}
+	client.call('extracttext', function(err,resp,body){
 		respns.send(body);
+		text=body.document[0].content;
 		respns.end();
 	}, data)
 
@@ -75,7 +76,7 @@ app.get('/ocrCheck',function(reqst,respns){
 
 
 app.get('/analyzeSpeech',function(reqst,respns){
-	data={'file':'./hpnext.mp4'};
+	data={'file':'./newone.wav'};
 	client.call('recognizespeech', function(err,resp,body){
 		console.log(body);
 		jobId=body.data.jobID;
@@ -90,4 +91,22 @@ app.get('/checkStatus',function(reqst,respns){
 		respns.send(body);
 		respns.end();
 	});
+});
+
+app.get('/conceptExtraction',function(reqst,respns){
+	data={'text':text}
+	client.call('extractconcepts', function(err,resp,body){
+		respns.send(body);
+		respns.end();
+	}, data)
+
+});
+
+app.get('/extractentities',function(reqst,respns){
+	data={'text':text,'entity_type':['companies_eng','organizations','places_eng','professions','universities','person_fullname_eng','number_phone_us','internet','internet_email']}
+	client.call('extractentities', function(err,resp,body){
+		respns.send(body);
+		respns.end();
+	}, data)
+
 });
