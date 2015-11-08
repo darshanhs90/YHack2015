@@ -15,11 +15,16 @@ app.controller('myCtrl',function($scope,$http) {
     }
 
     $scope.getIntScore=function(){
+        $http.get('http://localhost:1337/checkStatus')
+        .success(function(res){
+            console.log(res);
         $http.get('http://localhost:1337/analyzeSentiment')
         .success(function(res){
+            console.log(res);
             $scope.showInt=true;
             $scope.intscore=res.aggregate.score;
         });
+    });
     }
     $scope.showVal=0;
     $scope.getResumeInsights=function(){
@@ -51,6 +56,7 @@ app.controller('myCtrl',function($scope,$http) {
             console.log(res);
             $scope.mod_title="Interview Insights";
             $scope.showVal=3;
+            $scope.val=res;
         });
     }
 

@@ -8,7 +8,7 @@ app.use(cors());
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 
-
+var parseString = require('xml2js').parseString;
 
 var hod = require('havenondemand');
 var request=require('request');
@@ -29,14 +29,16 @@ app.get('/fppCheck',function(reqst,respns){
 	var parameters = {
 		attribute: 'gender,age',
 		img : {
-			value: fs.readFileSync('../../../EHARIHS/Downloads/test.jpg')
+			//value: fs.readFileSync('../../../EHARIHS/Downloads/test.jpg')
+			value: fs.readFileSync('../../../nagabharan/Downloads/test.png')
 			, meta: {filename:'test.jpg'}
 		}
 	};
 	fpp.post('detection/detect', parameters, function(err, res) {
 		console.log(res);
 		respns.send(res);
-		fs.unlinkSync('../../../EHARIHS/Downloads/test.jpg');
+		//fs.unlinkSync('../../../EHARIHS/Downloads/test.jpg');
+		fs.unlinkSync('../../../nagabharan/Downloads/test.png');
 		respns.end();
 	});
 });
@@ -45,8 +47,8 @@ app.get('/fppCheck',function(reqst,respns){
 
 app.get('/facedetectCheck',function(reqst,respns){
 
-	data={'file':'../../../EHARIHS/Downloads/test.jpg',
-	'additional':'true'}
+	//data={'file':'../../../EHARIHS/Downloads/test.jpg',	'additional':'true'}
+	data={'file':'../../../nagabharan/Downloads/test.png',	'additional':'true'}
 
 	client.call('detectfaces', function(err,resp,body){
 		respns.send(body);
@@ -77,25 +79,45 @@ app.get('/extracttext',function(reqst,respns){
 
 });
 
+app.get('/resscore',function(reqst,respns){
+	request.post(
+    'http://rezscore.com/a/c7c65b/grade',
+    { form: { resume: './res.pdf' } }, function(err,res,body){
+		var xml = body;
+		parseString(xml, function (err, result) {
+		    console.log(result.rezscore.score);
+		    respns.send(result);
+			respns.end();
+		});
+		
+	});
+});
 
 app.get('/analyzeSpeech',function(reqst,respns){
-	data={'file':'./test.wav'};
+	data={'file':'./public/recordrtc-nodejs/uploads/Test.wav'};
 	client.call('recognizespeech', function(err,resp,body){
 		console.log(body);
 		jobId=body.data.jobID;
 		respns.send(body);
-		fs.unlinkSync('./test.wav');
+		fs.unlinkSync('./public/recordrtc-nodejs/uploads/Test.wav');
 		respns.end();
 	}, data,true)
 });
 
 
 app.get('/checkStatus',function(reqst,respns){
-	request('http://api.idolondemand.com/1/job/status/'+jobId+'?apikey=f3129194-4f03-4419-80c2-f3aa041baf9a',function(err,res,body){
-		console.log(JSON.parse(body).actions);
+-	request('http://api.idolondemand.com/1/job/status/'+jobId+'?apikey=f3129194-4f03-4419-80c2-f3aa041baf9a',function(err,res,body){
+		console.log("SEE"+JSON.parse(body).actions);
 		respns.send(JSON.parse(body));
+		try{
 		sentimentText=JSON.parse(body).actions[0].result.document[0].content;
+		}
+		catch(err){
+			//
+		}
+		finally{
 		respns.end();
+		}
 	});
 });
 

@@ -97,7 +97,13 @@
        </div>
 
        <div ng-show="showVal==3">
-        C
+        <div ng-repeat="x in val.positive">
+            {{x.sentiment}} -> {{x.score}}
+        </div>
+        <div ng-repeat="x in val.negative">
+            {{x.sentiment}} -> {{x.score}}
+        </div>
+        
     </div>
 
     <div ng-show="showVal==4">
@@ -117,13 +123,12 @@
 <section id="intro" class="main style1 dark fullscreen">
     <div class="content container 75%">
         <header>
-            <h2>Hey.</h2>
+            <h2>Welcome to <strong>HireMeNow</strong></h2>
         </header>
-        <p>Welcome to <strong>HireMeNow</strong></p>
         <footer>
             <a href="#one" class="button style2 down fa fa-mouse-pointer fa-rotate-45">More</a>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            
-            <a href="employer.html#one" class="button style2 down fa fa-mouse-pointer fa-rotate-315">More</a>
+            <a href="index.html#intro" class="button style2 down fa fa-mouse-pointer fa-rotate-315">More</a>
         </footer>
     </div>
 </section>
@@ -135,7 +140,7 @@
             <h2 ng-click="getKeyTerms()">Resume Key Terms</h2>
         </header>
         <p>
-            {{(kTerms || 'empty')}}
+            {{kTerms}}
         </p>
     </div>
     <a href="#two" class="button style2 down anchored">Next</a>
@@ -147,12 +152,12 @@
         <header>
             <h2 ng-click="getIntScore()">Interview Score</h2>
         </header>
-        <p ng-show="showInt">Score is : {{(intscore || "NA")}}</p>
+        <p ng-show="showInt">Score is : {{intscore}}</p>
     </div>
     <a href="#work" class="button style2 down anchored">Next</a>
 </section>
 <!-- Work -->
-<section id="work" class="main style3 primary">
+<section id="work" class="main style3 primary" style="height:500px;">
     <div class="content container">
         <header>
             <h2>Student Insights</h2>
@@ -182,7 +187,8 @@
 </section>
 
 <!-- Contact -->
-<section id="contact" class="main style3 secondary">
+<!-- Contact -->
+<!-- <section id="contact" class="main style3 secondary">
     <div class="content container">
         <header>
             <h2>Say Hello.</h2>
@@ -190,7 +196,7 @@
         </header>
         <div class="box container 75%">
 
-            <!-- Contact Form -->
+            Contact Form
             <form method="post" action="#">
                 <div class="row 50%">
                     <div class="6u 12u(mobile)">
@@ -218,13 +224,13 @@
 
         </div>
     </div>
-</section>
+</section> -->
 
 <!-- Footer -->
 <footer id="footer">
 
     <!-- Icons -->
-    <ul class="actions">
+<!--     <ul class="actions">
         <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
         <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
         <li><a href="#" class="icon fa-google-plus"><span class="label">Google+</span></a></li>
@@ -232,13 +238,13 @@
         <li><a href="#" class="icon fa-pinterest"><span class="label">Pinterest</span></a></li>
         <li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
     </ul>
-
+ -->
     <!-- Menu -->
-    <ul class="menu">
+<!--     <ul class="menu">
         <li>&copy; Untitled</li>
         <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
     </ul>
-
+ -->
 </footer>
 
 <!-- Scripts -->
